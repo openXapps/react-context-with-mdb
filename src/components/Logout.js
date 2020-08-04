@@ -13,7 +13,7 @@ const Logout = () => {
       history.goBack();
     }, 1000);
     return () => { };
-  }, [dispatch]);
+  }, [dispatch, history]);
 
   return (
     <div className="m-5">

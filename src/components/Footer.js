@@ -5,7 +5,7 @@ import {
 import { AuthContext } from '../context/AuthContext';
 
 const Footer = () => {
-  const [state, dispatch] = React.useContext(AuthContext);
+  const [state] = React.useContext(AuthContext);
   return (
     <MDBBox className="fixed-bottom unique-color text-white p-1">
       <div>Connected to: {state.server}</div>

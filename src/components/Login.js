@@ -9,7 +9,7 @@ const authDetailsDefault = {
 };
 
 const Login = () => {
-  const [state, dispatch] = React.useContext(AuthContext);
+  const [, dispatch] = React.useContext(AuthContext);
   const [authDetails, setAuthDetails] = React.useState(authDetailsDefault);
   const history = useHistory();
 
