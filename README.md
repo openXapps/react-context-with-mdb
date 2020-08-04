@@ -1,4 +1,4 @@
-Little demo app to guide as a template for proper context and reducer handling. I also threw some MDB into the mix for prettiness.
+Little demo app to guide as a template for proper context and reducer handling. I also added some MDB into the mix for prettiness.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
