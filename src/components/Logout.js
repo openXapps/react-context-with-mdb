@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const Logout = () => {
-  const [state, dispatch] = React.useContext(AuthContext);
+  const [, dispatch] = React.useContext(AuthContext);
   const history = useHistory();
 
   React.useEffect(() => {
