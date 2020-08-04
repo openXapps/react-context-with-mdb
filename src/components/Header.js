@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <MDBNavbar color="unique-color" dark>
       <MDBNavbarBrand>
-        <strong className="white-text">Remedy API Test</strong>
+        <strong className="white-text">React Context Demo</strong>
       </MDBNavbarBrand>
       <MDBNavbarNav left>
         <MDBNavItem>

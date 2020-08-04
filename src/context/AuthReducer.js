@@ -1,7 +1,8 @@
 export const initialState = {
-  username: '',
+  user: {},
   token: '',
-  signedIn: false
+  signedIn: false,
+  server: ''
 }
 
 const AuthReducer = (state, {type, payload}) => {
@@ -9,16 +10,18 @@ const AuthReducer = (state, {type, payload}) => {
     case 'LOGIN':
       return {
         ...state,
-        username: payload.username,
+        user: payload.user,
         token: payload.token,
-        signedIn: true
+        signedIn: true,
+        server: payload.server
       };
     case 'LOGOUT':
       return {
         ...state,
-        username: '',
+        user: {},
         token: '',
-        signedIn: false
+        signedIn: false,
+        server: ''
       };
     default:
       return { ...state };

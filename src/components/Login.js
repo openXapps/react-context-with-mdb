@@ -3,17 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import { AuthContext } from '../context/AuthContext';
 
-const arServer = {
-  // url: 'http://ditsmapp1.standardbank.co.za:8008/api/jwt/login'
-  url: 'http://uitsmlbweb.standardbank.co.za/api/jwt/login'
-  // url: 'http://localhost/api/jwt/login'
-};
-
 const authDetailsDefault = {
-  username: 'gavin.dalton@standardbank.co.za',
+  username: '',
   password: '',
-  authorized: false,
-  validInput: 'UNSET'
 };
 
 const Login = () => {
@@ -22,48 +14,24 @@ const Login = () => {
   const history = useHistory();
 
   const onLogin = (e) => {
-    let isFormValid = true;
     e.preventDefault();
-    if (!authDetails.username || !authDetails.password) {
-      isFormValid = false
-      // setAuthDetails({ ...authDetails, validInput: 'INVALID' });
-    };
-    if (isFormValid) {
-      fetch(arServer.url, {
-        method: 'POST',
-        headers: {
-          'Cache-Control': 'no-cache',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        mode: 'no-cors'
-        // body: encodeURI(`username=${authDetails.username}&password=${authDetails.password}&authString=authenticationstring`)
-        // body: `username=${authDetails.username}&password=${authDetails.password}&authString=authenticationstring`
-      }).then((response) => {
-        console.log('Login: response...', response);
-        return response.text();
-      }).then((token) => {
-        console.log('Login: token... ', token);
+    if (authDetails.username && authDetails.password) {
+      setTimeout(() => {
         dispatch({
           type: 'LOGIN', payload: {
-            username: authDetails.username,
-            token: token
+            user: authDetails,
+            token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyWFwvM2RrQVpZQmk0WkR6RlYx',
+            server: 'hrsystem.mycompany.com'
           }
         });
-        // history.goBack();
-      }).catch((err) => {
-        console.log('Login: auth.err...', err);
-      });
+        history.goBack();
+      }, 1000);
     };
   };
 
   const onChange = (e) => {
-    // console.log('Login: onChange event name...', [e.target.name]);
-    // console.log('Login: onChange event value...', [e.target.value]);
-    // console.log('Login: authDetails.validInput...', authDetails.validInput);
-    // if (authDetails.validInput.valueOf() === 'INVALID') {
-    //   setAuthDetails({ ...authDetails, validInput: 'UNSET' });
-    // };
-    setAuthDetails({ ...authDetails, [e.target.name]: e.target.value, validInput: 'UNSET' });
+    // Note the cool dynamic member assignment
+    setAuthDetails({ ...authDetails, [e.target.name]: e.target.value });
   };
 
   return (
@@ -77,9 +45,6 @@ const Login = () => {
                   <h3 className="dark-grey-text mb-3">
                     <strong>Sign in</strong>
                   </h3>
-                  {authDetails.validInput === 'INVALID' ? (
-                    <p className="text-danger">Please enter valid information!</p>
-                  ) : (null)}
                 </div>
                 <form
                   onSubmit={onLogin}
