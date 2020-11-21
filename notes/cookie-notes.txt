@@ -1,0 +1,27 @@
+// Setup your cookie hooks
+const [cookiesAccepted, setCookiesAccepted] = React.useState(true);
+
+// Handle UI component state
+React.useEffect(() => {
+    // Browser cookies are fetched here
+    const cookies = decodeURIComponent(document.cookie);
+    // console.log('Validate cookies...', cookies);
+    if (!cookiesAccepted && cookies.indexOf('gd_openapps_accept=Yes') > -1) setCookiesAccepted(true);
+    if (cookiesAccepted && cookies.indexOf('gd_openapps_accept=Yes') === -1) setCookiesAccepted(false);
+    // Effect clean-up function
+    return () => true;
+}, [cookiesAccepted]);
+
+// Handle cookie management
+const handleAcceptCookies = (e) => {
+    let d = new Date();
+    // Cookie expires in 30 days
+    d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));
+    // Test cookie expires in 60 seconds
+    // d.setTime(d.getTime() + (60 * 1000));
+    const expires = `expires=${d.toUTCString()}`;
+    // Browser cookie gets set here
+    document.cookie = `gd_openapps_accept=Yes;expires=${expires};`;
+    // State hook gets updated here
+    setCookiesAccepted(true);
+}
