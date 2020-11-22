@@ -1,27 +1,25 @@
-export const initialState = {
-  user: {},
-  token: '',
-  signedIn: false,
-  server: ''
-}
-
-const AuthReducer = (state, {type, payload}) => {
+/**
+ * Authentication Reducer component
+ * @param {Object} state - Reducer current state
+ * @param {string} type - Reducer action type
+ * @param {Object} payload - Reducer payload
+ * @returns {Object} New state
+ */
+const AuthReducer = (state, { type, payload }) => {
   switch (type) {
     case 'LOGIN':
       return {
         ...state,
         user: payload.user,
         token: payload.token,
-        signedIn: true,
-        server: payload.server
+        signedIn: true
       };
     case 'LOGOUT':
       return {
         ...state,
-        user: {},
+        user: payload.user,
         token: '',
-        signedIn: false,
-        server: ''
+        signedIn: false
       };
     default:
       return { ...state };
