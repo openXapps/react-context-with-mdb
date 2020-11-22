@@ -36,7 +36,8 @@ export const getCookie = key => {
   let err = { name: 'Err', message: '' };
   try {
     // Parameter validation
-    if (!(key)) throw { ...err, message: 'MISSING PARAMS' };
+    if (!(key)) err = { ...err, message: 'MISSING PARAMS' };
+    if (err.message) throw err;
     // Fetch cookie
     if (document.cookie.split(';').some((item) => item.trim().startsWith(key + '='))) {
       value = document.cookie
@@ -61,8 +62,9 @@ export const validateCookie = key => {
   let err = { name: 'Err', message: '' };
   try {
     // Parameter validation
-    if (!(key)) throw { ...err, message: 'MISSING PARAMS' };
-    // Fetch cookie
+    if (!(key)) err = { ...err, message: 'MISSING PARAMS' };
+    if (err.message) throw err;
+    // Validate cookie existance
     if (document.cookie.split(';').some((item) => item.trim().startsWith(key + '='))) validation = true;
     return validation;
   } catch (e) {

@@ -2,26 +2,31 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import { AuthContext } from '../context/AuthContext';
+import { createCookie } from '../utils/cookies'
 
-const authDetailsDefault = {
-  username: '',
-  password: '',
+const authDetailsInit = {
+  email: '',
+  password: ''
 };
 
+// *** need to fix the state and flow of this component ***
+
 const Login = () => {
-  const [, dispatch] = React.useContext(AuthContext);
-  const [authDetails, setAuthDetails] = React.useState(authDetailsDefault);
+  const [state, dispatch] = React.useContext(AuthContext);
+  const [authDetails, setAuthDetails] = React.useState(authDetailsInit);
   const history = useHistory();
 
   const onLogin = (e) => {
     e.preventDefault();
-    if (authDetails.username && authDetails.password) {
+    if (authDetails.email && authDetails.password) {
       setTimeout(() => {
+        createCookie('first_name', 'John', 'm', 60);
+        createCookie('last_name', 'Smith', 'm', 60);
+        createCookie('email', authDetails.email, 'm', 60);
         dispatch({
           type: 'LOGIN', payload: {
-            user: authDetails,
-            token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyWFwvM2RrQVpZQmk0WkR6RlYx',
-            server: 'hrsystem.mycompany.com'
+            user: { ...state.user, firstName: 'John', lastName: 'Smith', email: authDetails.email },
+            token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyWFwvM2RrQVpZQmk0WkR6RlYx'
           }
         });
         history.goBack();
@@ -45,6 +50,9 @@ const Login = () => {
                   <h3 className="dark-grey-text mb-3">
                     <strong>Sign in</strong>
                   </h3>
+                  {state.user.firstName ? (
+                    <h4>{state.user.firstName}</h4>
+                  ) : (null)}
                 </div>
                 <form
                   onSubmit={onLogin}
@@ -53,10 +61,10 @@ const Login = () => {
                   <div className="grey-text">
                     <MDBInput
                       value={authDetails.username}
-                      name="username"
+                      name="email"
                       onChange={onChange}
-                      type="text"
-                      label="Your user name"
+                      type="email"
+                      label="Your email address"
                       icon="user"
                     />
                     <MDBInput
