@@ -11,14 +11,14 @@ export const createCookie = (key, value, units, offset) => {
   let err = { name: 'Err', message: '' };
   try {
     // Parameter validation
-    if (!(key && value && units && offset)) err = { ...err, message: 'MISSING PARAMS' };
-    if (!(units.indexOf('m') || units.indexOf('h') || units.indexOf('d'))) err = { ...err, message: 'UNITS NOT IN RANGE (m, h or d)' };
+    if (!(key && value && units && offset && offset > 0)) err = { ...err, message: 'MISSING PARAMS' };
+    if (!(units === 'm' || units === 'h' || units === 'd')) err = { ...err, message: 'UNITS NOT IN RANGE (m, h or d)' };
     if (!(Number.isInteger(offset))) err = { ...err, message: 'OFFSET NOT AN INTEGER' };
     if (err.message) throw err;
     // Cookie offset
-    if (units.indexOf('m')) d.setTime(d.getTime() + (offset * 60 * 1000));
-    if (units.indexOf('h')) d.setTime(d.getTime() + (offset * 60 * 60 * 1000));
-    if (units.indexOf('d')) d.setTime(d.getTime() + (offset * 24 * 60 * 60 * 1000));
+    if (units === 'm') d.setTime(d.getTime() + (offset * 60 * 1000));
+    if (units === 'h') d.setTime(d.getTime() + (offset * 60 * 60 * 1000));
+    if (units === 'd') d.setTime(d.getTime() + (offset * 24 * 60 * 60 * 1000));
     const expires = `expires=${d.toUTCString()}`;
     console.log('createCookie: expires...', expires);
     // Browser cookie gets set here

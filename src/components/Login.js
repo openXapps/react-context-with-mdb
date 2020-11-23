@@ -16,12 +16,13 @@ const Login = () => {
 
   const onLogin = (e) => {
     let result = false;
+    const cookieTimeout = 10;
     e.preventDefault();
     if (authDetails.email && authDetails.password) {
       setTimeout(() => {
-        result = createCookie('first_name', 'John', 'm', 60);
-        result = createCookie('last_name', 'Smith', 'm', 60);
-        result = createCookie('email', authDetails.email, 'm', 60);
+        result = createCookie('first_name', 'John', 'm', cookieTimeout);
+        result = createCookie('last_name', 'Smith', 'm', cookieTimeout);
+        result = createCookie('email', authDetails.email, 'm', cookieTimeout);
         if (result) {
           dispatch({
             type: 'LOGIN', payload: {
