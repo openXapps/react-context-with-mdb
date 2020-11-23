@@ -10,7 +10,7 @@ const Footer = () => {
     <MDBBox className="fixed-bottom unique-color text-white p-1">
       {state.signedIn ? (
         <div>Connected as: {state.user.email}</div>
-      ) : (null)}
+      ) : (<div>Connected as:</div>)}
     </MDBBox>
   );
 };

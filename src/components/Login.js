@@ -4,32 +4,33 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } 
 import { AuthContext } from '../context/AuthContext';
 import { createCookie } from '../utils/cookies'
 
-const authDetailsInit = {
+const initAuthDetails = {
   email: '',
   password: ''
 };
 
-// *** need to fix the state and flow of this component ***
-
 const Login = () => {
   const [state, dispatch] = React.useContext(AuthContext);
-  const [authDetails, setAuthDetails] = React.useState(authDetailsInit);
+  const [authDetails, setAuthDetails] = React.useState(initAuthDetails);
   const history = useHistory();
 
   const onLogin = (e) => {
+    let result = false;
     e.preventDefault();
     if (authDetails.email && authDetails.password) {
       setTimeout(() => {
-        createCookie('first_name', 'John', 'm', 60);
-        createCookie('last_name', 'Smith', 'm', 60);
-        createCookie('email', authDetails.email, 'm', 60);
-        dispatch({
-          type: 'LOGIN', payload: {
-            user: { ...state.user, firstName: 'John', lastName: 'Smith', email: authDetails.email },
-            token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyWFwvM2RrQVpZQmk0WkR6RlYx'
-          }
-        });
-        history.goBack();
+        result = createCookie('first_name', 'John', 'm', 60);
+        result = createCookie('last_name', 'Smith', 'm', 60);
+        result = createCookie('email', authDetails.email, 'm', 60);
+        if (result) {
+          dispatch({
+            type: 'LOGIN', payload: {
+              user: { ...state.user, firstName: 'John', lastName: 'Smith', email: authDetails.email },
+              token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyWFwvM2RrQVpZQmk0WkR6RlYx'
+            }
+          });
+          history.goBack();
+        }
       }, 1000);
     };
   };
