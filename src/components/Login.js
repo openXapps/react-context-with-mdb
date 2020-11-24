@@ -16,7 +16,7 @@ const Login = () => {
 
   const onLogin = (e) => {
     let result = false;
-    const cookieTimeout = 10;
+    const cookieTimeout = 1;
     e.preventDefault();
     if (authDetails.email && authDetails.password) {
       setTimeout(() => {
@@ -26,7 +26,7 @@ const Login = () => {
         if (result) {
           dispatch({
             type: 'LOGIN', payload: {
-              user: { ...state.user, firstName: 'John', lastName: 'Smith', email: authDetails.email },
+              user: { email: authDetails.email, firstName: 'John', lastName: 'Smith' },
               token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyWFwvM2RrQVpZQmk0WkR6RlYx'
             }
           });
