@@ -29,7 +29,7 @@ const getUserDetails = () => {
 };
 
 /**
- * Initial bookmarks context value
+ * Initial context state
  */
 const initialState = {
   user: getUserDetails(),

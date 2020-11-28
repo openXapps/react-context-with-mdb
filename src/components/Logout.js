@@ -3,13 +3,15 @@ import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const Logout = () => {
-  const [, dispatch] = React.useContext(AuthContext);
+  const [state, dispatch] = React.useContext(AuthContext);
   const history = useHistory();
 
   React.useEffect(() => {
     // console.log('Logout: history....', history);
     setTimeout(() => {
-      dispatch({ type: 'LOGOUT', payload: {} });
+      dispatch({
+        type: 'LOGOUT', payload: { token: '' }
+      });
       history.goBack();
     }, 1000);
     return () => { };

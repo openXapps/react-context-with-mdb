@@ -5,8 +5,8 @@ import { AuthContext } from '../context/AuthContext';
 import { createCookie } from '../utils/cookies'
 
 const initAuthDetails = {
-  email: '',
-  password: ''
+  email: 'john.smith@domain.com',
+  password: 'password'
 };
 
 const Login = () => {
@@ -16,13 +16,13 @@ const Login = () => {
 
   const onLogin = (e) => {
     let result = false;
-    const cookieTimeout = 1;
+    const cookieTimeout = 30;
     e.preventDefault();
     if (authDetails.email && authDetails.password) {
       setTimeout(() => {
-        result = createCookie('first_name', 'John', 'm', cookieTimeout);
-        result = createCookie('last_name', 'Smith', 'm', cookieTimeout);
-        result = createCookie('email', authDetails.email, 'm', cookieTimeout);
+        result = createCookie('first_name', 'John', 'd', cookieTimeout);
+        result = createCookie('last_name', 'Smith', 'd', cookieTimeout);
+        result = createCookie('email', authDetails.email, 'd', cookieTimeout);
         if (result) {
           dispatch({
             type: 'LOGIN', payload: {
@@ -62,7 +62,7 @@ const Login = () => {
                 >
                   <div className="grey-text">
                     <MDBInput
-                      value={authDetails.username}
+                      value={authDetails.email}
                       name="email"
                       onChange={onChange}
                       type="email"
